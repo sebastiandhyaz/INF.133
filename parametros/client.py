@@ -17,6 +17,6 @@ post_response = requests.request(method="POST", url=ruta_post, json=nuevo_estudi
 print(post_response.text)
 
 # GET filtrando por nombre con query params
-ruta_get = url + "estudiantes?nombre=Pedrito"
+ruta_get = url + "estudiantes?nombre=Pedrito&apellido=perez"
 get_response = requests.request(method="GET", url=ruta_get)
 print(get_response.text)
