@@ -1,7 +1,6 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import json
 
-
 class DeliveryVehicle:
     def __init__(self, capacity):
         self.capacity = capacity
@@ -14,16 +13,17 @@ class DeliveryVehicle:
         else:
             return "El vehículo ha alcanzado su capacidad máxima de entregas"
 
-
 class Motorcycle(DeliveryVehicle):
     def __init__(self):
         super().__init__(capacity=10)
-
 
 class Drone(DeliveryVehicle):
     def __init__(self):
         super().__init__(capacity=20)
 
+class Scout(DeliveryVehicle):
+    def __init__(self):
+        super().__init__(capacity=5)
 
 class DeliveryFactory:
     def create_delivery_vehicle(self, vehicle_type):
@@ -31,9 +31,10 @@ class DeliveryFactory:
             return Motorcycle()
         elif vehicle_type == "drone":
             return Drone()
+        elif vehicle_type == "scout":
+            return Scout()
         else:
             raise ValueError("Tipo de vehículo de entrega no válido")
-
 
 class DeliveryRequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
@@ -56,7 +57,6 @@ class DeliveryRequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(b"Ruta no encontrada")
 
-
 def main():
     try:
         server_address = ("", 8000)
@@ -66,7 +66,6 @@ def main():
     except KeyboardInterrupt:
         print("Apagando servidor HTTP")
         httpd.socket.close()
-
 
 if __name__ == "__main__":
     main()
